@@ -7,6 +7,8 @@ def add(inp_str):
     elif len(inp_str) == 1:
         return int(inp_str)
     else:
+        if '\n' in inp_str:
+            inp_str = inp_str.replace('\n',',')
         return sum([int(num) for num in inp_str.split(',')])
 
 class StringCalculatorTest(unittest.TestCase):
@@ -31,6 +33,9 @@ class StringCalculatorTest(unittest.TestCase):
 
     def test_give_7_numbers_as_input_return_sum(self):
         self.assertEqual(add('1,2,3,4,5,6,7'), 28)
+
+    def test_given_two_newline_separted_values_return_sum(self):
+        self.assertEqual(add('1\n2'), 3)
 
 if __name__ == '__main__':
     unittest.main()
