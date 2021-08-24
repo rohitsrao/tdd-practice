@@ -1,10 +1,21 @@
 import unittest
 
+class NegativeNumberException(Exception):
+
+    def __init__(self):
+        self.message = 'Negative Number Detected'
+    
 class StringCalculator:
+
+    def check_negative_numbers(self, list_of_num):
+        for num in list_of_num:
+            if num < 0:
+                raise NegativeNumberException
 
     def splitByDelimiter(self, input_list, delimiter):
         list_of_num = input_list.split(delimiter)
         list_of_num = [int(num_str) for num_str in list_of_num]
+        self.check_negative_numbers(list_of_num)
         return list_of_num
 
     def add(self, inp_str):
@@ -69,6 +80,9 @@ class StringCalculatorTest(unittest.TestCase):
     def test_given_two_numbers_separted_with_custom_delimiter_return_sum(self):
         result = self.str_calc.add('//;\n1;2')
         self.assertEqual(result, 3)
+
+    def test_when_one_input_number_is_negative_throws_NegativeNumberException(self):
+        self.assertRaises(NegativeNumberException, self.str_calc.add, '2,-5')
 
 
 if __name__ == '__main__':
