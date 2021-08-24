@@ -1,14 +1,20 @@
 import unittest
 
 class NegativeNumberException(Exception):
+    pass
 
-    def __init__(self):
-        self.message = 'Negative Number Detected'
-    
 class StringCalculator:
 
+<<<<<<< Updated upstream
     def check_and_filter_negative_numbers(self, list_of_num):
         negative_num_list = []
+=======
+<<<<<<< Updated upstream
+    def check_negative_numbers(self, list_of_num):
+=======
+    def check_and_filter_negative_numbers(self, list_of_num):
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
         for num in list_of_num:
             if num < 0:
                 raise NegativeNumberException()
@@ -21,8 +27,17 @@ class StringCalculator:
     def splitByDelimiter(self, input_list, delimiter):
         list_of_num = input_list.split(delimiter)
         list_of_num = [int(num_str) for num_str in list_of_num]
+<<<<<<< Updated upstream
         positive_num_list, negative_num_list = self.check_and_filter_negative_numbers(list_of_num)
         return positive_num_list
+=======
+<<<<<<< Updated upstream
+        self.check_negative_numbers(list_of_num)
+=======
+        self.check_and_filter_negative_numbers(list_of_num)
+>>>>>>> Stashed changes
+        return list_of_num
+>>>>>>> Stashed changes
 
     def add(self, inp_str):
         if isinstance(inp_str, str):
@@ -89,6 +104,11 @@ class StringCalculatorTest(unittest.TestCase):
 
     def test_when_one_input_number_is_negative_throws_NegativeNumberException(self):
         self.assertRaises(NegativeNumberException, self.str_calc.add, '2,-5')
+
+    def test_when_one_input_number_is_negative_returns_sum_without_negative_number(self):
+        result = self.str_calc.add('-1,7')
+        self.assertEqual(result, 7)
+
 
 
 if __name__ == '__main__':
