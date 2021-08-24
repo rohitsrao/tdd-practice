@@ -9,8 +9,9 @@ class StringCalculator:
             elif len(inp_str) == 1:
                 return int(inp_str)
             else:
-                a, b = inp_str.split(',')
-                return int(a) + int(b)
+                list_of_num = inp_str.split(',')
+                list_of_num = [int(num_str) for num_str in list_of_num]
+                return sum(list_of_num)
         else:
             return -1
 
@@ -31,9 +32,17 @@ class StringCalculatorTest(unittest.TestCase):
         result = self.str_calc.add('3')
         self.assertEqual(result, 3)
 
-    def test_given_two_comma_separated_numbers_as_input_returns_sum(self):
+    def test_given_two_comma_separated_numbers_returns_sum(self):
         result = self.str_calc.add('6,5')
         self.assertEqual(result, 11)
+
+    def test_given_three_comma_separated_numbers_return_sum(self):
+        result = self.str_calc.add('1,2,3')
+        self.assertEqual(result, 6)
+
+    def test_given_seven_comma_separated_numbers_return_sum(self):
+        result = self.str_calc.add('1,2,3,4,5,6,7')
+        self.assertEqual(result, 28)
 
 if __name__ == '__main__':
     unittest.main()
