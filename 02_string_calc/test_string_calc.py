@@ -6,18 +6,23 @@ def add(inp_str):
         return 0
     elif len(inp_str) == 1:
         return int(inp_str)
-    elif len(inp_str) == 2:
-        if int(inp_str) < 0:
-            raise Exception('negatives not allowed - ' + inp_str)
     else:
         if inp_str[0:2] == '//':
             delimiter_str, num_str_list = inp_str.split(';')
             delimiter = delimiter_str[2:]
-            return sum([int(num) for num in num_str_list.split(delimiter)])
+            num_list = [int(num) for num in num_str_list.split(delimiter)]
+            negative_num_list = [num for num in num_list if num < 0]
+            if negative_num_list:
+                raise Exception('negatives not allowed - '.join(negative_num_list))
+            return sum(num_list)
         else:
             if '\n' in inp_str:
                 inp_str = inp_str.replace('\n',',')
-            return sum([int(num) for num in inp_str.split(',')])
+            num_list = [int(num) for num in inp_str.split(',')]
+            negative_num_list = [num for num in num_list if num < 0]
+            if negative_num_list:
+                raise Exception('negatives not allowed - '.join(negative_num_list))
+            return sum(num_list)
 
 class StringCalculatorTest(unittest.TestCase):
 
@@ -53,6 +58,9 @@ class StringCalculatorTest(unittest.TestCase):
 
     def test_given_minus_as_custom_delimiter_returns_sum(self):
         self.assertEqual(add('//-;1-2-3-4'), 10)
+
+    def test_given_double_digit_negative_number_throw_exception(self):
+        self.assertRaises(Exception, add, '-11')
 
 if __name__ == '__main__':
     unittest.main()
