@@ -6,6 +6,9 @@ def add(inp_str):
         return 0
     elif len(inp_str) == 1:
         return int(inp_str)
+    elif len(inp_str) == 2:
+        if int(inp_str) < 0:
+            raise Exception('negatives not allowed - ' + inp_str)
     else:
         if inp_str[0:2] == '//':
             delimiter_str, num_str_list = inp_str.split(';')
@@ -44,6 +47,9 @@ class StringCalculatorTest(unittest.TestCase):
 
     def test_given_two_custom_delimiter_separated_values_return_sum(self):
         self.assertEqual(add('//>;1>2>3>4>5'), 15)
+
+    def test_given_single_negative_number_throw_exception(self):
+        self.assertRaises(Exception, add, '-1')
 
 if __name__ == '__main__':
     unittest.main()
