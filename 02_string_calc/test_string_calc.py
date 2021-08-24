@@ -9,12 +9,14 @@ class StringCalculator:
             elif len(inp_str) == 1:
                 return int(inp_str)
             else:
-                if(inp_str[1] == ','):
+                if(',' in inp_str):
                     list_of_num = inp_str.split(',')
-                if(inp_str[1] == '\n'):
+                    list_of_num = [int(num_str) for num_str in list_of_num]
+                    return sum(list_of_num)
+                if('\n' in inp_str):
                     list_of_num = inp_str.split('\n')
-                list_of_num = [int(num_str) for num_str in list_of_num]
-                return sum(list_of_num)
+                    list_of_num = [int(num_str) for num_str in list_of_num]
+                    return sum(list_of_num)
         else:
             return -1
 
@@ -50,6 +52,11 @@ class StringCalculatorTest(unittest.TestCase):
     def test_given_two_newline_separated_numbers_return_sum(self):
         result = self.str_calc.add('1\n2')
         self.assertEqual(result, 3)
+
+    def test_given_give_newline_separated_numbers_return_sum(self):
+        result = self.str_calc.add('10\n20\n30\n40\n50')
+        self.assertEqual(result, 150)
+
 
 if __name__ == '__main__':
     unittest.main()
