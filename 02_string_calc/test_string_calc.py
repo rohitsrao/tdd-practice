@@ -26,6 +26,12 @@ class StringCalculatorTest(unittest.TestCase):
     def test_given_any_two_numbers_as_input_returns_sum(self):
         self.assertEqual(add('300, 270'), 570)
 
+    def test_given_three_numbers_as_input_return_sum(self):
+        self.assertEqual(add('1,2,3'), 6)
+
+    def test_give_7_numbers_as_input_return_sum(self):
+        self.assertEqual(add('1,2,3,4,5,6,7'), 28)
+
 if __name__ == '__main__':
     unittest.main()
 
