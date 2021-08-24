@@ -10,6 +10,12 @@ class StringCalculator:
                 return int(inp_str)
             else:
                 list_of_num = inp_str.split(',')
+                list_of_num = [num_str.split('\n') for num_str in list_of_num]
+                tmp = []
+                for i in range(len(list_of_num)):
+                    for each in list_of_num[i]:
+                        tmp.append(each)
+                list_of_num = tmp
                 list_of_num = [int(num_str) for num_str in list_of_num]
                 return sum(list_of_num)
         else:
@@ -43,6 +49,10 @@ class StringCalculatorTest(unittest.TestCase):
     def test_given_seven_comma_separated_numbers_return_sum(self):
         result = self.str_calc.add('1,2,3,4,5,6,7')
         self.assertEqual(result, 28)
+
+    def test_given_two_newline_separated_numbers_return_sum(self):
+        result = self.str_calc.add('1\n2')
+        self.assertEqual(result, 3)
 
 if __name__ == '__main__':
     unittest.main()
