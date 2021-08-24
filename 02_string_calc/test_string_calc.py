@@ -1,4 +1,5 @@
 import unittest
+import random
 
 def add(inp_str):
     if not inp_str:
@@ -6,7 +7,7 @@ def add(inp_str):
     elif len(inp_str) == 1:
         return int(inp_str)
     else:
-        return 3
+        return sum([int(num) for num in inp_str.split(',')])
 
 class StringCalculatorTest(unittest.TestCase):
 
@@ -21,6 +22,9 @@ class StringCalculatorTest(unittest.TestCase):
 
     def test_given_one_and_two_as_input_returns_three(self):
         self.assertEqual(add('1,2'), 3)
+
+    def test_given_any_two_numbers_as_input_returns_sum(self):
+        self.assertEqual(add('300, 270'), 570)
 
 if __name__ == '__main__':
     unittest.main()
