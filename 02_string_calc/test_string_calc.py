@@ -2,6 +2,11 @@ import unittest
 
 class StringCalculator:
 
+    def splitByDelimiter(self, input_list, delimiter):
+        list_of_num = input_list.split(delimiter)
+        list_of_num = [int(num_str) for num_str in list_of_num]
+        return list_of_num
+
     def add(self, inp_str):
         if isinstance(inp_str, str):
             if not inp_str:
@@ -9,14 +14,18 @@ class StringCalculator:
             elif len(inp_str) == 1:
                 return int(inp_str)
             else:
-                if(',' in inp_str):
-                    list_of_num = inp_str.split(',')
-                    list_of_num = [int(num_str) for num_str in list_of_num]
+                if (inp_str[0:2] == '//'):
+                    delimiter_str, list_of_num = inp_str.split('\n', 1)
+                    delimiter = delimiter_str[2:]
+                    list_of_num = self.splitByDelimiter(list_of_num, delimiter)
                     return sum(list_of_num)
-                if('\n' in inp_str):
-                    list_of_num = inp_str.split('\n')
-                    list_of_num = [int(num_str) for num_str in list_of_num]
-                    return sum(list_of_num)
+                else:
+                    if(',' in inp_str):
+                        list_of_num = self.splitByDelimiter(inp_str, ',')
+                        return sum(list_of_num)
+                    if('\n' in inp_str):
+                        list_of_num = self.splitByDelimiter(inp_str, '\n')
+                        return sum(list_of_num)
         else:
             return -1
 
@@ -56,6 +65,10 @@ class StringCalculatorTest(unittest.TestCase):
     def test_given_give_newline_separated_numbers_return_sum(self):
         result = self.str_calc.add('10\n20\n30\n40\n50')
         self.assertEqual(result, 150)
+
+    def test_given_two_numbers_separted_with_custom_delimiter_return_sum(self):
+        result = self.str_calc.add('//;\n1;2')
+        self.assertEqual(result, 3)
 
 
 if __name__ == '__main__':
