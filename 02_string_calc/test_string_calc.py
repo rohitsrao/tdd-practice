@@ -9,13 +9,10 @@ class StringCalculator:
             elif len(inp_str) == 1:
                 return int(inp_str)
             else:
-                list_of_num = inp_str.split(',')
-                list_of_num = [num_str.split('\n') for num_str in list_of_num]
-                tmp = []
-                for i in range(len(list_of_num)):
-                    for each in list_of_num[i]:
-                        tmp.append(each)
-                list_of_num = tmp
+                if(inp_str[1] == ','):
+                    list_of_num = inp_str.split(',')
+                if(inp_str[1] == '\n'):
+                    list_of_num = inp_str.split('\n')
                 list_of_num = [int(num_str) for num_str in list_of_num]
                 return sum(list_of_num)
         else:
