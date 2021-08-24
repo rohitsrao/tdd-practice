@@ -7,16 +7,22 @@ class NegativeNumberException(Exception):
     
 class StringCalculator:
 
-    def check_negative_numbers(self, list_of_num):
+    def check_and_filter_negative_numbers(self, list_of_num):
+        negative_num_list = []
         for num in list_of_num:
             if num < 0:
-                raise NegativeNumberException
+                raise NegativeNumberException()
+                negative_num_list.append(num)
+                list_of_num.remove(num)
+        if not negative_num_list: 
+            print(negative_num_list)
+        return list_of_num, negative_num_list
 
     def splitByDelimiter(self, input_list, delimiter):
         list_of_num = input_list.split(delimiter)
         list_of_num = [int(num_str) for num_str in list_of_num]
-        self.check_negative_numbers(list_of_num)
-        return list_of_num
+        positive_num_list, negative_num_list = self.check_and_filter_negative_numbers(list_of_num)
+        return positive_num_list
 
     def add(self, inp_str):
         if isinstance(inp_str, str):
@@ -28,15 +34,15 @@ class StringCalculator:
                 if (inp_str[0:2] == '//'):
                     delimiter_str, list_of_num = inp_str.split('\n', 1)
                     delimiter = delimiter_str[2:]
-                    list_of_num = self.splitByDelimiter(list_of_num, delimiter)
-                    return sum(list_of_num)
+                    positive_num_list = self.splitByDelimiter(list_of_num, delimiter)
+                    return sum(positive_num_list)
                 else:
                     if(',' in inp_str):
-                        list_of_num = self.splitByDelimiter(inp_str, ',')
-                        return sum(list_of_num)
+                        positive_num_list = self.splitByDelimiter(inp_str, ',')
+                        return sum(positive_num_list)
                     if('\n' in inp_str):
-                        list_of_num = self.splitByDelimiter(inp_str, '\n')
-                        return sum(list_of_num)
+                        positive_num_list = self.splitByDelimiter(inp_str, '\n')
+                        return sum(positive_num_list)
         else:
             return -1
 
