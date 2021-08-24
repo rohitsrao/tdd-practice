@@ -1,5 +1,11 @@
 import unittest
-import random
+
+class NegativeNumberException(Exception):
+
+    def __init__(self, negative_num_list):
+        self.str_negative_num_list = [str(num) for num in negative_num_list]
+        self.msg = 'negatives not allowed - '.join(self.str_negative_num_list)
+        super().__init__(self.msg)
 
 def add(inp_str):
     if not inp_str:
@@ -13,7 +19,7 @@ def add(inp_str):
             num_list = [int(num) for num in num_str_list.split(delimiter)]
             negative_num_list = [num for num in num_list if num < 0]
             if negative_num_list:
-                raise Exception('negatives not allowed - '.join(negative_num_list))
+                raise NegativeNumberException(negative_num_list)
             return sum(num_list)
         else:
             if '\n' in inp_str:
@@ -21,7 +27,7 @@ def add(inp_str):
             num_list = [int(num) for num in inp_str.split(',')]
             negative_num_list = [num for num in num_list if num < 0]
             if negative_num_list:
-                raise Exception('negatives not allowed - '.join(negative_num_list))
+                raise NegativeNumberException(negative_num_list)
             return sum(num_list)
 
 class StringCalculatorTest(unittest.TestCase):
@@ -54,13 +60,16 @@ class StringCalculatorTest(unittest.TestCase):
         self.assertEqual(add('//>;1>2>3>4>5'), 15)
 
     def test_given_single_digit_negative_number_throw_exception(self):
-        self.assertRaises(Exception, add, '-1')
+        self.assertRaises(NegativeNumberException, add, '-1')
 
     def test_given_minus_as_custom_delimiter_returns_sum(self):
         self.assertEqual(add('//-;1-2-3-4'), 10)
 
     def test_given_double_digit_negative_number_throw_exception(self):
-        self.assertRaises(Exception, add, '-11')
+        self.assertRaises(NegativeNumberException, add, '-11')
+
+    def test_given_mix_of_positive_and_negative_numbers_throws_exception(self):
+        self.assertRaises(NegativeNumberException, add, '-1,2,3,-4,-5,6,7')
 
 if __name__ == '__main__':
     unittest.main()
