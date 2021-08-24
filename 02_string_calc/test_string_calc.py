@@ -5,39 +5,20 @@ class NegativeNumberException(Exception):
 
 class StringCalculator:
 
-<<<<<<< Updated upstream
-    def check_and_filter_negative_numbers(self, list_of_num):
+    def filter_negative_numbers(self, list_of_num):
+        errorCode = 0
         negative_num_list = []
-=======
-<<<<<<< Updated upstream
-    def check_negative_numbers(self, list_of_num):
-=======
-    def check_and_filter_negative_numbers(self, list_of_num):
->>>>>>> Stashed changes
->>>>>>> Stashed changes
         for num in list_of_num:
             if num < 0:
-                raise NegativeNumberException()
                 negative_num_list.append(num)
                 list_of_num.remove(num)
-        if not negative_num_list: 
-            print(negative_num_list)
         return list_of_num, negative_num_list
 
     def splitByDelimiter(self, input_list, delimiter):
         list_of_num = input_list.split(delimiter)
         list_of_num = [int(num_str) for num_str in list_of_num]
-<<<<<<< Updated upstream
-        positive_num_list, negative_num_list = self.check_and_filter_negative_numbers(list_of_num)
+        positive_num_list, negative_num_list = self.filter_negative_numbers(list_of_num)
         return positive_num_list
-=======
-<<<<<<< Updated upstream
-        self.check_negative_numbers(list_of_num)
-=======
-        self.check_and_filter_negative_numbers(list_of_num)
->>>>>>> Stashed changes
-        return list_of_num
->>>>>>> Stashed changes
 
     def add(self, inp_str):
         if isinstance(inp_str, str):
@@ -102,14 +83,9 @@ class StringCalculatorTest(unittest.TestCase):
         result = self.str_calc.add('//;\n1;2')
         self.assertEqual(result, 3)
 
-    def test_when_one_input_number_is_negative_throws_NegativeNumberException(self):
-        self.assertRaises(NegativeNumberException, self.str_calc.add, '2,-5')
-
     def test_when_one_input_number_is_negative_returns_sum_without_negative_number(self):
-        result = self.str_calc.add('-1,7')
-        self.assertEqual(result, 7)
-
-
+        result = self.str_calc.add('-34,51')
+        self.assertEqual(result, 51)
 
 if __name__ == '__main__':
     unittest.main()
