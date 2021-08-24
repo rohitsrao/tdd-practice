@@ -7,9 +7,14 @@ def add(inp_str):
     elif len(inp_str) == 1:
         return int(inp_str)
     else:
-        if '\n' in inp_str:
-            inp_str = inp_str.replace('\n',',')
-        return sum([int(num) for num in inp_str.split(',')])
+        if inp_str[0:2] == '//':
+            delimiter_str, num_str_list = inp_str.split(';')
+            delimiter = delimiter_str[2:]
+            return sum([int(num) for num in num_str_list.split(delimiter)])
+        else:
+            if '\n' in inp_str:
+                inp_str = inp_str.replace('\n',',')
+            return sum([int(num) for num in inp_str.split(',')])
 
 class StringCalculatorTest(unittest.TestCase):
 
@@ -36,6 +41,9 @@ class StringCalculatorTest(unittest.TestCase):
 
     def test_given_two_newline_separted_values_return_sum(self):
         self.assertEqual(add('1\n2'), 3)
+
+    def test_given_two_custom_delimiter_separated_values_return_sum(self):
+        self.assertEqual(add('//>;1>2>3>4>5'), 15)
 
 if __name__ == '__main__':
     unittest.main()
