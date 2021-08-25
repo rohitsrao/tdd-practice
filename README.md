@@ -1,2 +1,2 @@
 # tdd-practice
-Praciticing Test Driven Development
+Praciticing Test Driven Development with Python
