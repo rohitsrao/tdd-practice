@@ -1,11 +1,6 @@
 import unittest
 
-class BusDriver:
-
-    def __init__(self, route):
-        self.route = route
-        self.gossip = ''
-        self.gossip_received = []
+from bus_driver import BusDriver
 
 class TestBusDriver(unittest.TestCase):
 
