@@ -6,10 +6,10 @@ from app import App
 class TestApp(unittest.TestCase):
 
     def setUp(self):
-        self.bus_driver_1 = BusDriver([3, 1, 2, 3])
-        self.bus_driver_2 = BusDriver([3, 2, 3, 1])
-        self.bus_driver_3 = BusDriver([4, 2, 3, 4, 5])
-        self.list_of_drivers = [self.bus_driver_1, self.bus_driver_2, self.bus_driver_3]
+        self.bus_driver_0 = BusDriver([3, 1, 2, 3])
+        self.bus_driver_1 = BusDriver([3, 2, 3, 1])
+        self.bus_driver_2 = BusDriver([4, 2, 3, 4, 5])
+        self.list_of_drivers = [self.bus_driver_0, self.bus_driver_1, self.bus_driver_2]
         self.app = App(self.list_of_drivers)
     
     def test_create_App_instance(self):
@@ -37,6 +37,12 @@ class TestApp(unittest.TestCase):
         self.app.update_all_driver_stops()
         for driver in self.list_of_drivers:
             self.assertEqual(driver.current_stop, driver.route[1])
+
+    def test_initialize_driver_gossip_sets_driver_gossip_to_g_index(self):
+        self.app.initialize_driver_gossip()
+        for i in range(len(self.list_of_drivers)):
+            driver = self.list_of_drivers[i]
+            self.assertEqual(driver.gossip, 'g'+str(i))
 
 
 if __name__ == '__main__':
