@@ -43,6 +43,7 @@ class TestApp(unittest.TestCase):
         for i in range(len(self.list_of_drivers)):
             driver = self.list_of_drivers[i]
             self.assertEqual(driver.gossip, 'g'+str(i))
+            self.assertEqual(driver.gossip_received, ['g'+str(i)])
 
 
 if __name__ == '__main__':

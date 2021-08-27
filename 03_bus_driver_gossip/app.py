@@ -11,6 +11,7 @@ class App:
         for i in range(len(self.list_of_drivers)):
             driver = self.list_of_drivers[i]
             driver.gossip = 'g'+str(i)
+            driver.gossip_received.append(driver.gossip)
     
     def generate_stop_list(self):
         route_concatenation = []
