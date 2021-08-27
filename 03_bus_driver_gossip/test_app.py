@@ -31,7 +31,7 @@ class TestApp(unittest.TestCase):
         for bus_driver in self.list_of_drivers:
             self.assertEqual(bus_driver.current_pos, bus_driver.route[0])
     
-    def test_calling_generate_stop_list_creates_non_empty_list_attribute_stops(self):
+    def test_calling_generate_stop_set_creates_non_empty_set_attribute_stops(self):
         self.app.generate_stop_list()
         self.assertIsInstance(self.app.stops, set)
         self.assertNotEqual(len(self.app.stops), 0)
